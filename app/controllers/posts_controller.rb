@@ -6,7 +6,9 @@ class PostsController < ApplicationController
   def index
     if params[:query].present?
       # sử dụng ILike để tìm kiếm ko phân biệt hoa và thường trong pgsql
-      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      # @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+      # suwr dungj pgsearch, muốn biết cái search by kia thì qua bên post.rb
+      @posts = Post.search_by_title_and_content(params[:query])
     else
       @posts = Post.all
     end

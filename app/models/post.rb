@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :liked_users, through: :likes, source: :user
   has_one_attached :picture
+  has_many :comments, dependent: :destroy
 
   has_rich_text :content
 
@@ -17,4 +18,11 @@ class Post < ApplicationRecord
     # Sử dụng phương thức include? để kiểm tra xem user có nằm trong danh sách liked_user hay không.
     liked_users.include?(user)
   end
+  include PgSearch::Model
+
+  pg_search_scope :search_by_title_and_content,
+    against: [ :title, :content ],
+    using: {
+      tsearch: { prefix: true } # Cho phép tìm kiếm từ khóa không cần chính xác hoàn toàn
+    }
 end

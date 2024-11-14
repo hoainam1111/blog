@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   # Route này sẽ tạo đường dẫn users/:user_id/posts để hiển thị các bài đăng của user.
 
-  resources :posts
+  resources :posts do
+    resources :comments, only: [ :create ]
+  end
   resources :categories, only: [ :show ]
   namespace :api do
     resources :likes, only: [ :create, :destroy ]
