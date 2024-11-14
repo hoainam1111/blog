@@ -4,7 +4,12 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    if params[:query].present?
+      # sử dụng ILike để tìm kiếm ko phân biệt hoa và thường trong pgsql
+      @posts = Post.where("title ILIKE ? OR content ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    else
+      @posts = Post.all
+    end
   end
 
   # GET /posts/1 or /posts/1.json

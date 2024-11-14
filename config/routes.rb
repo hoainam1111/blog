@@ -7,9 +7,8 @@ Rails.application.routes.draw do
     resources :likes, only: [ :create, :destroy ]
   end
   devise_for :users
-  resources :users do
-    resources :posts, only: [ :show ]
-  end
+
+  # show lists posts of user
   resources :users do
     get "posts", to: "user_posts#index", as: "posts" # Đường dẫn: /users/:user_id/posts
   end

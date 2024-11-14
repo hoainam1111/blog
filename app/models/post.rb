@@ -6,6 +6,7 @@ class Post < ApplicationRecord
   has_many :liked_users, through: :likes, source: :user
   has_one_attached :picture
 
+  has_rich_text :content
 
   def liked_by?(user = nil)
     # Nếu user là nil,
