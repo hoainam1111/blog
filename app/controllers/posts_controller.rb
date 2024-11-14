@@ -9,6 +9,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+    @relative_posts = Post.where(category_id: @post.category_id)
   end
 
   # GET /posts/new
@@ -24,9 +26,9 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-
     respond_to do |format|
       if @post.save
+
         format.html { redirect_to @post, notice: "Post was successfully created." }
         format.json { render :show, status: :created, location: @post }
       else
@@ -67,6 +69,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :user_id, :category_ids [])
+      params.require(:post).permit(:title, :content, :user_id, :picture, :category_id)
     end
 end

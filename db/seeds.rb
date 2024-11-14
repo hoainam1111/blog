@@ -13,19 +13,15 @@
     password: "123456"
   })
 end
-6.times do |i|
-  Post.create!({
-    title: "Post #{i}",
-    content: "This is the content of post #{i}",
-    user_id: User.all.sample.id
-  })
-end
 5.times do |i|
   Category.create!(name: "Category #{i}")
 end
-5.times do |i|
-  PostCategory.create!({
-    post_id: Post.all.sample.id,
+6.times do |i|
+  random_posts = Post.create!({
+    title: "Post #{i}",
+    content: "This is the content of post #{i}",
+    user_id: User.all.sample.id,
     category_id: Category.all.sample.id
   })
+  random_posts.picture.attach(io: File.open("db/images/#{i}.jpg"), filename: random_posts.title)
 end
