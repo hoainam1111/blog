@@ -1,18 +1,98 @@
+<section class="w-full bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+        <div class="lg:flex lg:-mx-6">
+            <div class="lg:w-3/4 lg:px-6">
+                <img class="object-cover mb-8 object-center w-full h-80 xl:h-[28rem] rounded-xl" src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="">
 
-  <div class="mx-auto">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
+                <div>
+                    <% @post.categories.each do |category| %>
+                      <%= link_to category_path(category.id), class: "text-white-500 bg-blue-100 mt-24 mr-2 p-1" do %>
+                      
+                          <%= category.name %>
+                      
+                      <% end %>
+                    <% end %>
 
-    <%= render @post %>
+                    <h1 class="max-w-lg mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
+                        <%= @post.title %>
+                    </h1>
 
-    
-    <%= link_to "Back to posts", posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <% if current_user == @post.user %>
-    <div class="inline-block ml-2">
-      <%= link_to "Edit this post", edit_post_path(@post), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      <%= button_to "Destroy this post", @post, method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+                    <div class="flex justify-between">
+                      <div class="flex items-center mt-6">
+                        <img class="object-cover object-center w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1531590878845-12627191e687?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="">
+
+                        <div class="mx-4">
+                            <h1 class="text-sm text-gray-700 dark:text-gray-200"><%= @post.user.name %></h1>
+                            <p class="text-sm text-gray-500 dark:text-gray-400"><%= @post.created_at.strftime("%B %d,%Y") %></p>
+                        </div>
+                      </div>
+                      <div class="inline mr-2"
+                          data-controller="like" 
+                           data-user-logged-in = "<%= user_signed_in? %>"
+                           data-post-id = "<%= @post.id %>"
+                           data-user-id="<%= current_user&.id %>"
+                           data-like-id="<%= @post.likes.find_by(user: current_user)&.id %>"
+                           data-action="click->like#updateLikeStatus"
+                           
+                           data-status= "<%= @post.liked_by?(current_user) %>">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                           class=" <%= @post.liked_by?(current_user) ? 'fill-blue-500' : 'fill-none' %>"
+                           data-like-target="icon"
+                           viewBox="0 0 24 24" strokeWidth={1.5} 
+                           stroke="currentColor" className="size-6"
+                           >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.25c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75a.75.75 0 0 1 .75-.75 2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282m0 0h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23H5.904m10.598-9.75H14.25M5.904 18.5c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 0 1-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 9.953 4.167 9.5 5 9.5h1.053c.472 0 .745.556.5.96a8.958 8.958 0 0 0-1.302 4.665c0 1.194.232 2.333.654 3.375Z" />
+                        </svg>
+                        <span data-like-target="text" class="font-medium text-sm">
+                          <%= @post.liked_by?(current_user) ? 'Liked' : 'Like' %>
+                        </span>
+                      </div>
+                    </div>
+                    <div class=" mt-8 font-light">
+                      <%= @post.content %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
+                <div>
+                    <h3 class="text-blue-500 capitalize">Design instument</h3>
+
+                    <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                        How to raise $100k+ by using blox ui kit on your design
+                    </a>
+                </div>
+
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+
+                <div>
+                    <h3 class="text-blue-500 capitalize">UI Resource</h3>
+
+                    <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                        Should you creat UI Product by using Blox?
+                    </a>
+                </div>
+
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+
+                <div>
+                    <h3 class="text-blue-500 capitalize">Premium Collection</h3>
+
+                    <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                        Top 10 Blocks you can get on Blox's collection.
+                    </a>
+                </div>
+
+                <hr class="my-6 border-gray-200 dark:border-gray-700">
+
+                <div>
+                    <h3 class="text-blue-500 capitalize">Premium kits</h3>
+
+                    <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                        Top 10 Ui kit you can get on Blox's collection.
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-    <%end%>
-  </div>
-
+</section>
