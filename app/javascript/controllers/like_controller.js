@@ -21,8 +21,9 @@ export default class extends Controller {
             this.addLikedToPost(postId, userId);
         }
         else{
-            const likeId = this.element.dataset.likeId;
-            this.unlikedPost(likeId)
+            const likedId = this.element.dataset.likedId
+            console.log("Deleting like with ID:", likedId)
+            this.unlikedPost(likedId)
         }
     }
     addLikedToPost(postId, userId){
@@ -45,7 +46,7 @@ export default class extends Controller {
             return response.json();
         })
         .then(data => {
-            this.element.dataset.likeId = data.id;
+            this.element.dataset.likedId = data.id;
             this.element.dataset.status = "true";
             this.iconTarget.classList.remove("fill-none");
             this.iconTarget.classList.add("fill-blue-500");
@@ -55,19 +56,23 @@ export default class extends Controller {
             console.log(e);
         })
     }
-    unlikedPost(likeId){
-        fetch('/api/likes/' + likeId,{
+    unlikedPost(likedId){
+        fetch("/api/likes/" + likedId,{
             method: 'DELETE',
         })
         .then(response => {
-            this.element.dataset.likeId = "";
+            this.element.dataset.likedId = '';
             this.element.dataset.status = "false";
             this.iconTarget.classList.remove("fill-blue-500");
             this.iconTarget.classList.add("fill-none");
             this.textTarget.innerText = "Like";
         })
         .catch(e => {
-            console.log(e);
+            if (e.response && e.response.status === 404) {
+                console.error("Resource not found (404). Check the likedId or API route.");
+            } else {
+                console.error("An error occurred:", e);
+            }
         })
     }
 }
