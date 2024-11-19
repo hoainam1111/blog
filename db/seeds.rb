@@ -25,3 +25,5 @@ end
   })
   random_posts.picture.attach(io: File.open("db/images/#{i}.jpg"), filename: random_posts.title)
 end
+# sử dụng để update likes_count cho toàn bô các posts
+# Post.find_each { |post| Post.reset_counters(post.id, :likes) }

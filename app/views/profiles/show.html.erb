@@ -39,16 +39,18 @@
             <div class="mt-6 py-6 border-t border-slate-200 text-center">
                 <div class="flex flex-wrap justify-center">
                     <div class="w-full px-4">
-                        <p class="font-light leading-relaxed text-slate-600 mb-4">An artist of considerable range, Mike is the name taken by Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and records all of his own music, giving it a warm.</p>
+                        <p class="font-light leading-relaxed text-slate-600 mb-4">
+                            <%= @user.about.present? ? @user.about : "No information provided yet." %>
+                        </p>
                         <% if current_user == @user %>
-                            <%= link_to "Edit profile", edit_profile_path, class: "px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" %>
+                            <%= link_to "Edit profile", edit_profile_path,data: {turbo_frame: "modal"}, class: "px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" %>
                         <% end %>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <%= turbo_frame_tag "modal" %>
     <div class=" grid grid-cols-2 lg:grid-cols-3">
         <%= render partial: 'profiles/user_posts', post: @post %>
     </div>
