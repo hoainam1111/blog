@@ -24,7 +24,7 @@
 
         <div class="flex items-center justify-between mt-4">
             <div>
-                <%= link_to user_posts_path(user_id: post.user.id), class: "text-lg font-medium text-gray-700 dark:text-gray-300 hover:underline hover:text-gray-500" do %>
+                <%= link_to profile_path(post.user), class: "text-lg font-medium text-gray-700 dark:text-gray-300 hover:underline hover:text-gray-500" do %>
                     <%= post.user.name %>
                 <% end %>
 

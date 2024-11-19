@@ -25,8 +25,9 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                 </svg>
             </div>
+            <%# TODO: delete comment not reload page %>
             <% if current_user == comment.user %>
-                <%= link_to "Delete", post_comment_path(@post, comment), data: { turbo_method: :delete }, params: {format: :html} %>
+                <%= link_to "Delete", post_comment_path(@post, comment, format: :html), data: { turbo_method: :delete }%>
             <% end %>
             <div>
                 <svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   namespace :api do
     resources :likes, only: [ :create, :destroy ]
   end
+  resources :profiles, only: [ :show, :edit, :update ]
+
   devise_for :users
 
   # show lists posts of user
