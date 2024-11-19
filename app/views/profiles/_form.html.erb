@@ -11,14 +11,20 @@
     </div>
   <% end %>
 
-  <div class="mb-8">
+  <div class="mb-6">
     <%= form.label :name, class: "text-sm font-medium text-gray-800 mb-1 block" %>
     <%= form.text_field :name, class: "border border-gray-300 rounded-sm w-full" %>
   </div>
 
-  <div class="mb-8">
+  <div class="mb-6">
     <%= form.label :email, class: "text-sm font-medium text-gray-800 mb-1 block" %>
     <%= form.text_field :email, class: "border border-gray-300 rounded-sm w-full" %>
+  </div>
+  <div class="mb-6">
+    <%= form.label :avatar, class: "text-sm font-medium text-gray-800 mb-1 block" %>
+    <%= form.file_field :avatar, class: "border border-gray-300 rounded-sm w-full", onchange: "readURL(this);" %>
+    <img id="img_prev" src="#" alt="your image" />
+    
   </div>
 
   <div class="mb-8">
@@ -32,4 +38,20 @@
       <%= link_to 'Cancel', profile_path(@user) %>
     <% end %>
   </div>
+   <script>
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            $('#img_prev')
+              .attr('src', e.target.result)
+              .width(150)
+              .height(200);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+    </script>
 <% end %>
