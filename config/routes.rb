@@ -16,11 +16,12 @@ Rails.application.routes.draw do
   devise_for :users
   namespace :admin do
     resources :users
+    resources :posts
   end
   # show lists posts of user
-  resources :users do
-    get "posts", to: "user_posts#index", as: "posts" # Đường dẫn: /users/:user_id/posts
-  end
+  # resources :users do
+  #   get "posts", to: "user_posts#index", as: "posts" # Đường dẫn: /users/:user_id/posts
+  # end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
