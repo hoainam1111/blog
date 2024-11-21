@@ -32,7 +32,9 @@
             </div>
             <%= link_to "Read more", post_path(post.id), class: "inline-block text-blue-500 underline hover:text-blue-400" %>
 
-            
+            <% if minimal_details %>
+                <%= link_to "Delete", admin_user_post_path(user, post),data: { turbo_method: :delete }, class: "inline-block text-blue-500 underline hover:text-blue-400" %>
+            <% end %>
         </div>
 
     </div>

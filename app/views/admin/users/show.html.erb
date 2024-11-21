@@ -20,7 +20,7 @@
 </div>
 <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3 shadow-lg border-gray-50">
     <% @posts.each do |post| %>
-        <%= render 'posts', post: post,user: @user, minimal_details: true %>
+        <%= render 'posts/post', post: post,user: @user, minimal_details: true %>
     <% end %>
 </div>
 
