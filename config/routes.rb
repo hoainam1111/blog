@@ -15,8 +15,9 @@ Rails.application.routes.draw do
   end
   devise_for :users
   namespace :admin do
-    resources :users
-    resources :posts
+    resources :users do
+      resources :posts, only: [ :destroy ]
+    end
   end
   # show lists posts of user
   # resources :users do

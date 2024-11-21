@@ -60,3 +60,4 @@ end
 
 gem "devise", "~> 4.9"
 gem "pg_search"
+gem "will_paginate", "~> 4.0", ">= 4.0.1"
