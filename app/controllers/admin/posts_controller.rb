@@ -7,9 +7,9 @@ class Admin::PostsController < AdminController
   end
   def destroy
     if @post.destroy
-      redirect_to admin_user_path(@user), notice: "Post was successfully deleted."
+      redirect_to params[:redirect_path] || admin_user_posts_path(@user), notice: "Post was successfully deleted."
     else
-      redirect_to admin_user_path(@user), notice: "Failed to delete the post."
+      redirect_to params[:redirect_path] || admin_user_posts_path(@user), notice: "Post was fail deleted."
     end
   end
   private

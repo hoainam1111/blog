@@ -23,7 +23,13 @@
     </td>
     <td class="px-4 py-4 text-sm whitespace-nowrap">
         <div class="flex items-center">
-            <%= post.category.name %>
+            <% if post.category %>
+                <%= link_to admin_category_path(post.category), class: "hover:text-blue-400" do %>
+                    <%= post.category.name %>
+                <% end %>
+            <% else %>
+                No category
+            <% end %>
         </div>
     </td>
 
