@@ -1,8 +1,20 @@
 class Admin::CategoriesController < AdminController
+  before_action :set_category, only: [ :edit, :update ]
   def index
-    @categories = Category.all
+    if params[:query].present?
+      @categories = Category.where("name ILIKE ?", "%#{params[:query]}%").order(created_at: :desc)
+    else
+      @categories = Category.all
+    end
   end
   def edit
+  end
+  def update
+    if @category.update(category_params)
+      redirect_to admin_categories_path, notice: "Category was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
   def show
     @category = Category.find(params[:id])
@@ -17,5 +29,12 @@ class Admin::CategoriesController < AdminController
     else
       redirect_to admin_categories_path, notice: "Failed to delete the category."
     end
+  end
+  private
+  def set_category
+    @category = Category.find(params[:id])
+  end
+  def category_params
+    params.require(:category).permit(:name)
   end
 end

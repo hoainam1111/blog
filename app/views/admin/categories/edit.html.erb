@@ -1,0 +1,14 @@
+<h1>Edit Category</h1>
+<%# phải có url: admin_cate.... %>
+<%= form_with model: @category, url: admin_category_path(@category), local: true do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Category" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to Categories", admin_categories_path %>
