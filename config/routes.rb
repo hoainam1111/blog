@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :users do
       resources :posts, only: [ :destroy ]
     end
+    resources :categories
   end
   # show lists posts of user
   # resources :users do

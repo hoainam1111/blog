@@ -8,9 +8,14 @@
                 <img class="object-cover mb-8 object-center w-full h-80 xl:h-[28rem] rounded-xl" src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="">
               <% end %>
                 <div>
-                    
-                    <%= link_to category_path(@post.category), class: "text-white-500 bg-blue-100 mt-24 mr-2 p-1" do %>                      
-                        <%= @post.category.name %>                      
+                    <% if @post.category %>
+                      <%= link_to category_path(@post.category), class: "text-white-500 bg-blue-100 mt-24 mr-2 p-1" do %>                      
+                          <%= @post.category.name %>                      
+                      <% end %>
+                    <% else %>
+                      <p class="text-white-500 bg-blue-100 mr-2 p-1">
+                          No category
+                      </p>
                     <% end %>
                   <div class="py-4">
                     <h1 class="max-w-lg mt-4 text-2xl font-semibold leading-tight text-gray-800 dark:text-white">
@@ -60,19 +65,19 @@
             </div>
 
             <div class="mt-8 lg:w-1/4 lg:mt-0 lg:px-6">
-              <% @relative_posts.limit(4).each do |post| %>
-                <div>
-                    <h3 class="text-blue-500 capitalize">
-                      <%= post.category.name %>
-                    </h3>
+                <% @relative_posts.each do |post| %>
+                  <div>
+                      <h3 class="text-blue-500 capitalize">
+                        <%= post.category.name %>
+                      </h3>
 
-                    <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
-                        <%= post.title %>
-                    </a>
-                </div>
+                      <a href="#" class="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 ">
+                          <%= post.title %>
+                      </a>
+                  </div>
 
-                <hr class="my-6 border-gray-200 dark:border-gray-700">
-              <% end %>
+                  <hr class="my-6 border-gray-200 dark:border-gray-700">
+                <% end %>
             </div>
         </div>
     </div>

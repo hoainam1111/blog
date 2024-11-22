@@ -6,13 +6,17 @@
     <% end %>
 
     <div class="mt-8">
-
-            <%= link_to category_path(post.category), class: "text-white-500 bg-blue-100 mr-2 p-1 " do %>
-            
-                <%= post.category.name %>
-            
+            <% if post.category %>
+                <%= link_to category_path(post.category), class: "text-white-500 bg-blue-100 mr-2 p-1 " do %>
+                
+                    <%= post.category.name %>
+                
+                <% end %>
+            <% else %>
+                <p class="text-white-500 bg-blue-100 mr-2 p-1">
+                    No category
+                </p>
             <% end %>
-
 
         <h1 class="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
             <%= post.title %>

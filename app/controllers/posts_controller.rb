@@ -17,7 +17,11 @@ class PostsController < ApplicationController
   # GET /posts/1 or /posts/1.json
   def show
     @post = Post.find(params[:id])
-    @relative_posts = Post.where(category_id: @post.category_id)
+    if @post.category.nil?
+      @relative_posts = Post.where.not(id: @post.id).order(likes_count: :desc).limit(3)
+    else
+      @relative_posts = Post.where(category: @post.category).where.not(id: @post.id).order(likes_count: :desc).limit(3)
+    end
   end
 
   # GET /posts/new
