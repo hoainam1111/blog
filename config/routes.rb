@@ -20,10 +20,10 @@ Rails.application.routes.draw do
     end
     resources :categories
   end
-  # show lists posts of user
-  # resources :users do
-  #   get "posts", to: "user_posts#index", as: "posts" # Đường dẫn: /users/:user_id/posts
-  # end
+
+  resources :conversations, only: [ :index, :create ] do
+    resources :messages, only: [ :index, :create ]
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
