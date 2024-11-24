@@ -12,12 +12,19 @@ class ConversationsController < ApplicationController
    end
   end
   def create
-    @conversation = Conversation.between(current_user.id, params[:recipient_id]).first_or_initialize
+    @conversation = Conversation.between(current_user.id, params[:recipient_id]).first_or_initialize do |conversation|
+      conversation.sender_id = current_user.id
+      conversation.recipient_id = params[:recipient_id]
+    end
     if @conversation.save
-      redirect_to conversation_messages_path(@conversation)
+      redirect_to conversations_path(conversation_id: @conversation.id)
     else
       flash[:alert] = @conversation.errors.full_messages.join(", ")
       redirect_back(fallback_location: root_path)
     end
+  end
+  private
+  def conversation_params
+    params.require(:conversation).permit(:recipient_id)
   end
 end

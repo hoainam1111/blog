@@ -32,5 +32,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   get "admin" => "admin#index"
 
+  post "conversations/create/:recipient_id", to: "conversations#create", as: :create_conversation
+
   root to: "posts#index"
 end

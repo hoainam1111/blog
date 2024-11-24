@@ -44,7 +44,10 @@
                         </p>
                         <% if current_user == @user %>
                             <%= link_to "Edit profile", edit_profile_path,data: {turbo_frame: "modal"}, class: "px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" %>
+                        <% else %>
+                            <%= button_to "Chat", create_conversation_path(@user),method: :post, class: "px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80" %>
                         <% end %>
+                        
                     </div>
                 </div>
             </div>
