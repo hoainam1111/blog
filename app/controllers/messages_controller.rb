@@ -1,25 +1,26 @@
 class MessagesController < ApplicationController
+  layout "chat"
   before_action :authenticate_user!
-  def index
-    @messages = @conversation.messages.order(:created_at)
-    @message = @conversation.messages.new
-  end
+  before_action :set_conversation
   def create
+    # Tạo tin nhắn mới trong đoạn hội thoại hiện tại
     @message = @conversation.messages.new(message_params)
     @message.user = current_user
+
     if @message.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to conversation_messages_path(@conversation) }
-      end
+      # Sử dụng Turbo hoặc AJAX để cập nhật giao diện
+      redirect_to conversations_path(conversation_id: @conversation.id)
     else
-      render :index, status: :unprocessable_entity
+      # Xử lý lỗi nếu không lưu được tin nhắn
+      flash[:alert] = "Unable to send message."
+      redirect_to conversations_path(conversation_id: @conversation.id)
     end
   end
+
   private
 
   def set_conversation
-    @conversation = Conversation.find(params[:conversation_id])
+    @conversation = Conversation.find_by(id: params[:conversation_id])
   end
 
   def message_params

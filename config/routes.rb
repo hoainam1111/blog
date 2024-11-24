@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   resources :conversations, only: [ :index, :create ] do
-    resources :messages, only: [ :index, :create ]
+    resources :messages, only: [ :create ]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check

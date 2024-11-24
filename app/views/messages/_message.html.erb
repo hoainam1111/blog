@@ -1,0 +1,33 @@
+<% if message.user == current_user %>
+<div class="col-start-6 col-end-13 p-3 rounded-lg">
+    <div class="flex items-center justify-start flex-row-reverse">
+    <% if message.user.avatar.present? %>
+        <%= image_tag message.user.avatar, class: "flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0" %>
+    <% else %>
+
+    <% end %>
+    <div
+        class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
+    >
+        <div><%= message.content %></div>
+    </div>
+    </div>
+</div>
+<% else %>
+    <div class="col-start-1 col-end-8 p-3 rounded-lg">
+        <div class="flex flex-row items-center">
+        <% if message.user.avatar.present? %>
+        <%= image_tag message.user.avatar, class: "flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0" %>
+        <% else %>
+        <div class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+            <%= message.user.name[0] %>
+        </div>
+        <% end %>
+        <div
+            class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+        >
+            <div><%= message.content %> </div>
+        </div>
+        </div>
+    </div>
+<% end %>
