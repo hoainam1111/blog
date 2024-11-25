@@ -1,3 +1,8 @@
-<% @posts.each do |post| %>
-    <%= render 'posts/post', post: post %>
-<% end %>
+<div class="flex flex-col items-center">
+    <h2>
+    <%= @category.name %>
+    </h2>
+    <% @posts.each do |post| %>
+        <%= render 'posts/post', post: post, minimal_details: false %>
+    <% end %>
+</div>
